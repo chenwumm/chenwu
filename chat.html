@@ -1,62 +1,27 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>评论区域</title>
+<meta charset="UTF-8">
+<title>聊天</title>
 </head>
 <body>
+<input type="text" id="myInput" placeholder="输入信息">
+<button onclick="storeInput()">发送</button>
  
-<h2>发表评论</h2>
-<form action="submit_comment.php" method="post">
-    <div>
-        <label for="name">姓名:</label>
-        <input type="text" id="name" name="name" required>
-    </div>
-   
-    <div>
-        <label for="comment">评论:</label>
-        <textarea id="comment" name="comment" required></textarea>
-    </div>
-    <div>
-        <input type="submit" value="提交评论">
-        <script>
-        function saveFile() {
-            var input = document.getElementById('fileInput');
-            var file = input.files[0]; // 获取文件引用
- 
-            // 创建FileSaver对象来处理文件保存操作
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                // 创建一个新的Blob对象，并传入文件内容
-                var blob = new Blob([e.target.result], { type: 'text/plain;charset=utf-8' });
- 
-                // 创建一个指向新文件或者新文件夹的URL
-                var url = URL.createObjectURL(blob);
- 
-                // 创建一个链接元素
-                var link = document.createElement('a');
-                link.href = url;
-                link.download = 'newfile.txt'; // 设置下载文件名
- 
-                // 触发下载
-                link.click();
- 
-                // 清理
-                URL.revokeObjectURL(url);
-            };
- 
-            // 读取文件内容
-            reader.readAsText(file);
-        }
-    </script>
-    </div>
-</form>
- 
-<h2>已有评论</h2>
-<div id="comments">
-    <!-- 这里将显示已有的评论 -->
-</div>
- 
+<script>
+function storeInput() {
+  var inputContent = document.getElementById('myInput').value;
+  fetch('write_variable.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: ' ' + encodeURIComponent(inputContent)
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+}
+</script>
 </body>
-    </html>
+</html>
