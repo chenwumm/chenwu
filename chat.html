@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +20,36 @@
     </div>
     <div>
         <input type="submit" value="提交评论">
+        <script>
+        function saveFile() {
+            var input = document.getElementById('fileInput');
+            var file = input.files[0]; // 获取文件引用
+ 
+            // 创建FileSaver对象来处理文件保存操作
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                // 创建一个新的Blob对象，并传入文件内容
+                var blob = new Blob([e.target.result], { type: 'text/plain;charset=utf-8' });
+ 
+                // 创建一个指向新文件或者新文件夹的URL
+                var url = URL.createObjectURL(blob);
+ 
+                // 创建一个链接元素
+                var link = document.createElement('a');
+                link.href = url;
+                link.download = 'newfile.txt'; // 设置下载文件名
+ 
+                // 触发下载
+                link.click();
+ 
+                // 清理
+                URL.revokeObjectURL(url);
+            };
+ 
+            // 读取文件内容
+            reader.readAsText(file);
+        }
+    </script>
     </div>
 </form>
  
