@@ -1,35 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Send Input Box</title>
-<script>
-function sendInput() {
-    var inputContent = document.getElementById('inputBox').value;
-    // 创建一个p元素
-    var p = document.createElement('p');
- 
-    // 设置p元素的内容
-    p.textContent = inputContent;
- 
-    // 将p元素添加到body中
-    document.body.appendChild(p);
-}
-</script>
+    <meta charset="UTF-8">
+    <title>评论区域</title>
 </head>
 <body>
- <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-</head>
-<body>
-
+ 
+<h2>发表评论</h2>
+<form action="submit_comment.php" method="post">
+    <div>
+        <label for="name">姓名:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div>
+        <label for="email">邮箱:</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+    <div>
+        <label for="comment">评论:</label>
+        <textarea id="comment" name="comment" required></textarea>
+    </div>
+    <div>
+        <input type="submit" value="提交评论">
+    </div>
+</form>
+ 
+<h2>已有评论</h2>
+<div id="comments">
+    <!-- 这里将显示已有的评论 -->
+</div>
  
 </body>
-</html>
-<input type="text" id="inputBox" placeholder="Type something here...">
-<button onclick="sendInput()">发送</button>
- 
-</body>
-</html>
+    </html>
