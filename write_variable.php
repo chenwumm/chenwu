@@ -1,11 +1,11 @@
 <?php
 // 获取POST过来的变量
-$variable = $_POST['variable'] ?? '';
+$variable = $_POST['inputContent'] ?? '';
  
 // 检查变量是否非空
 if (!empty($variable)) {
     // 指定文件路径和名称
-    $filePath = 'path/to/your/file.txt';
+    $filePath = 'output.txt';
  
     // 尝试将变量内容写入文件
     if (file_put_contents($filePath, $variable)) {
