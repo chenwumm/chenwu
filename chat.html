@@ -1,52 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>简易聊天室</title>
+    <meta charset="UTF-8">
+    <title>Simple Chat Room</title>
     <style>
-        #chat-history {
-            max-height: 300px;
+        #chat-log {
+            height: 300px;
             overflow-y: scroll;
             border: 1px solid #ccc;
-            padding: 5px;
+            padding: 10px;
+        }
+        #message-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
         }
     </style>
 </head>
 <body>
  
-<div id="chat-history"></div>
- 
-<form id="chat-form">
-    <input type="text" id="msg-input" placeholder="输入消息" />
-    <button type="submit">发送</button>
-</form>
+<div id="chat-log"></div>
+<input type="text" id="message-input" placeholder="Type your message here...">
+<button onclick="sendMessage()">Send</button>
  
 <script>
-    const chatHistory = document.getElementById('chat-history');
-    const msgInput = document.getElementById('msg-input');
-    const chatForm = document.getElementById('chat-form');
- 
-    // 模拟接收消息函数
-    function receiveMessage(message) {
-        const newElement = document.createElement('p');
-        newElement.innerText = message;
-        chatHistory.appendChild(newElement);
-    }
- 
-    // 模拟发送消息函数
-    function sendMessage(message) {
-        // 在这里添加发送消息到服务器的逻辑
-        receiveMessage(message); // 模拟接收消息
-    }
- 
-    // 表单提交事件监听
-    chatForm.addEventListener('submit', function(event){
-        event.preventDefault();
-        const message = msgInput.value.trim();
-        if(message.length > 0){
-            sendMessage(message);
-            msgInput.value = '';
+    function sendMessage() {
+        var message = document.getElementById('message-input').value;
+        if (message === '') {
+            alert('Message cannot be empty.');
+            return;
         }
-    });
+ 
+        // 模拟发送消息到后端
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/send-message', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // 模拟接收消息
+                var response = JSON.parse(xhr.responseText);
+                if (response.success) {
+                    appendMessage('<b>You:</b> ' + message);
+                } else {
+                    alert('Error sending message.');
+                }
+            }
+        };
+        xhr.send(JSON.stringify({ 'message': message }));
+    }
+ 
+    function appendMessage(message) {
+        var chatLog = document.getElementById('chat-log');
+        chatLog.innerHTML += '<p>' + message + '</p>';
+    }
 </script>
  
 </body>
