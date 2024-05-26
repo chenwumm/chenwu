@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>简易聊天室</title>
+    <style>
+        #chat-history {
+            max-height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+ 
+<div id="chat-history"></div>
+ 
+<form id="chat-form">
+    <input type="text" id="msg-input" placeholder="输入消息" />
+    <button type="submit">发送</button>
+</form>
+ 
+<script>
+    const chatHistory = document.getElementById('chat-history');
+    const msgInput = document.getElementById('msg-input');
+    const chatForm = document.getElementById('chat-form');
+ 
+    // 模拟接收消息函数
+    function receiveMessage(message) {
+        const newElement = document.createElement('p');
+        newElement.innerText = message;
+        chatHistory.appendChild(newElement);
+    }
+ 
+    // 模拟发送消息函数
+    function sendMessage(message) {
+        // 在这里添加发送消息到服务器的逻辑
+        receiveMessage(message); // 模拟接收消息
+    }
+ 
+    // 表单提交事件监听
+    chatForm.addEventListener('submit', function(event){
+        event.preventDefault();
+        const message = msgInput.value.trim();
+        if(message.length > 0){
+            sendMessage(message);
+            msgInput.value = '';
+        }
+    });
+</script>
+ 
+</body>
+</html>
